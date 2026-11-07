@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eaf7fb">
+  <title>Nordic Expedition — Northern Europe Travel Guide</title>
+  <style>
+    :root {
+      --ink: #263743;
+      --muted: #647783;
+      --blue: #3b91ab;
+      --blue-dark: #24677e;
+      --ice: #eaf7fb;
+      --paper: #fff;
+      --line: #dceaf0;
+      --shadow: 0 18px 48px rgba(34, 75, 92, .10);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #f7fbfc;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    button, a { font: inherit; }
+    a { color: inherit; }
+    button:focus-visible, a:focus-visible {
+      outline: 3px solid #e6a848;
+      outline-offset: 4px;
+    }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+
+    .topbar {
+      position: absolute;
+      inset: 0 0 auto;
+      z-index: 2;
+      color: white;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 78px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: white;
+      text-decoration: none;
+      font-size: .92rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+    }
+    .brand-mark {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border: 1px solid #ffffff70;
+      border-radius: 50%;
+      background: #ffffff1c;
+    }
+    .nav-links { display: flex; gap: 26px; }
+    .nav-links a {
+      color: #ffffffdc;
+      text-decoration: none;
+      font-size: .88rem;
+      font-weight: 650;
+    }
+    .nav-links a:hover { color: white; }
+
+    .hero {
+      position: relative;
+      display: flex;
+      min-height: 650px;
+      align-items: center;
+      overflow: hidden;
+      color: white;
+      background:
+        radial-gradient(ellipse at 75% 37%, #9de3d5 0, #54a9aa 15%, transparent 36%),
+        radial-gradient(ellipse at 70% 40%, #415e8f 0, #243e69 30%, transparent 60%),
+        linear-gradient(145deg, #17314c 4%, #315c79 58%, #6fa7b4 100%);
+    }
+    .hero::before, .hero::after {
+      position: absolute;
+      content: "";
+      pointer-events: none;
+    }
+    .hero::before {
+      inset: auto -5% -1px;
+      height: 38%;
+      background: linear-gradient(150deg, transparent 0 27%, #d7eff2 27.2% 40%, #b4dce4 40.2% 56%, #f5fbfc 56.2%);
+      clip-path: polygon(0 60%, 10% 34%, 18% 55%, 31% 4%, 42% 52%, 54% 18%, 64% 57%, 78% 6%, 91% 48%, 100% 25%, 100% 100%, 0 100%);
+      opacity: .9;
+    }
+    .hero::after {
+      inset: 0;
+      background: linear-gradient(90deg, #152e49de 0%, #183650a8 50%, #18365010 100%);
+    }
+    .hero-content { position: relative; z-index: 1; padding: 100px 0 145px; max-width: 720px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      color: #d7f6f1;
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { width: 26px; height: 1px; background: currentColor; content: ""; }
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(2.8rem, 7vw, 5.6rem);
+      line-height: .99;
+      letter-spacing: -.065em;
+    }
+    h1 span { color: #b6edf0; }
+    .hero-intro {
+      max-width: 565px;
+      margin: 24px 0 30px;
+      color: #e2edf2;
+      font-size: 1.08rem;
+    }
+    .button {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 20px;
+      border: 0;
+      border-radius: 999px;
+      background: white;
+      color: #234b60;
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 800;
+      box-shadow: 0 8px 22px #122a4233;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .button:hover { transform: translateY(-2px); box-shadow: 0 12px 26px #122a4240; }
+    .hero-note { display: inline-block; margin-left: 16px; color: #dcecf0; font-size: .84rem; }
+
+    main { padding-bottom: 70px; }
+    .section { padding-top: 88px; scroll-margin-top: 24px; }
+    .section-heading { max-width: 690px; margin-bottom: 32px; }
+    .kicker {
+      margin: 0 0 10px;
+      color: var(--blue);
+      font-size: .75rem;
+      font-weight: 850;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    h2 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      line-height: 1.08;
+      letter-spacing: -.045em;
+    }
+    .section-heading > p:last-child { margin: 14px 0 0; color: var(--muted); }
+
+    .places-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .place-card {
+      position: relative;
+      display: flex;
+      min-height: 355px;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      padding: 25px;
+      border-radius: var(--radius);
+      color: white;
+      background: linear-gradient(180deg, #19374b00 10%, #163247df 100%), var(--scene);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+    .place-card::before {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background: var(--scene);
+      content: "";
+      transition: transform .5s;
+    }
+    .place-card:hover::before { transform: scale(1.05); }
+    .place-card::after {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      background: linear-gradient(180deg, #16324705 15%, #163247e8 100%);
+      content: "";
+    }
+    .place-card.norway {
+      --scene: radial-gradient(ellipse at 70% 25%, #b7ffe3 0 2%, transparent 26%),
+        radial-gradient(ellipse at 58% 20%, #7de8c9 0 2%, transparent 30%),
+        linear-gradient(140deg, #122d4c, #367d83 55%, #a9d8cf);
+    }
+    .place-card.denmark {
+      --scene: linear-gradient(180deg, #a9dce8 0 48%, #5f9fb5 48% 58%, #d8c5a5 58%),
+        linear-gradient(90deg, #725e53, #c0a57e);
+    }
+    .place-card.iceland {
+      --scene: radial-gradient(ellipse at 65% 35%, #b6f9ff 0 5%, #54c3d8 10%, transparent 38%),
+        linear-gradient(155deg, #c5e9ec, #5c98a7 54%, #435c63);
+    }
+    .place-emoji { position: absolute; top: 20px; left: 22px; font-size: 1.65rem; }
+    .place-country {
+      margin: 0 0 6px;
+      color: #bfe9eb;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .place-card h3 { margin: 0; font-size: 1.55rem; line-height: 1.2; }
+    .place-card p:last-child { margin: 9px 0 0; color: #e7f2f4; font-size: .9rem; }
+
+    .transport-section {
+      margin-top: 88px;
+      padding: 72px 0;
+      background: linear-gradient(135deg, #eaf7fb, #f3fbfc 55%, #e1f1f5);
+    }
+    .transport-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 44px; align-items: center; }
+    .ride-options { display: grid; gap: 12px; }
+    .ride-option {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      gap: 14px;
+      padding: 15px 17px;
+      border: 1px solid #d5e7ed;
+      border-radius: 16px;
+      background: #ffffffa8;
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+    .ride-option:hover { border-color: #83b9c9; transform: translateX(3px); }
+    .ride-option[aria-pressed="true"] {
+      border-color: var(--blue);
+      background: white;
+      box-shadow: 0 8px 24px #2c758d18;
+    }
+    .ride-icon { font-size: 1.6rem; }
+    .ride-option strong { display: block; font-size: .95rem; }
+    .ride-option small { display: block; margin-top: 2px; color: var(--muted); }
+    .ride-panel {
+      min-height: 284px;
+      padding: 33px;
+      border: 1px solid #e3eef1;
+      border-radius: var(--radius);
+      background: white;
+      box-shadow: var(--shadow);
+    }
+    .ride-panel .panel-icon { font-size: 2.2rem; }
+    .ride-panel h3 { margin: 12px 0 8px; font-size: 1.65rem; letter-spacing: -.03em; }
+    .ride-panel p { margin: 0; color: var(--muted); }
+    .ride-tip {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: var(--ice);
+      color: var(--blue-dark);
+      font-size: .8rem;
+      font-weight: 700;
+    }
+
+    .timeline { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .timeline::before {
+      position: absolute;
+      top: 26px;
+      right: 12%;
+      left: 12%;
+      height: 2px;
+      background: #cfe3e9;
+      content: "";
+    }
+    .time-card { position: relative; padding-top: 56px; }
+    .time-dot {
+      position: absolute;
+      top: 16px;
+      left: 22px;
+      z-index: 1;
+      width: 22px;
+      height: 22px;
+      border: 5px solid #f7fbfc;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 0 2px #a9d0dc;
+    }
+    .time-button {
+      width: 100%;
+      min-height: 180px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: white;
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 8px 24px #244a5c08;
+      transition: .2s;
+    }
+    .time-button:hover, .time-button[aria-expanded="true"] {
+      border-color: #90bfcd;
+      box-shadow: 0 12px 28px #244a5c12;
+      transform: translateY(-2px);
+    }
+    .time-date { display: block; margin-bottom: 8px; color: var(--blue); font-size: .76rem; font-weight: 850; letter-spacing: .08em; }
+    .time-button strong { display: block; font-size: 1.05rem; }
+    .time-button .teaser { display: block; margin-top: 8px; color: var(--muted); font-size: .87rem; }
+    .time-detail {
+      display: none;
+      margin: 12px 0 0;
+      padding: 16px 18px;
+      border-left: 3px solid var(--blue);
+      border-radius: 0 12px 12px 0;
+      background: #eaf7fb;
+      color: #49616d;
+      font-size: .88rem;
+    }
+    .time-detail.is-open { display: block; }
+
+    .today-note {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 17px;
+      align-items: start;
+      margin-top: 26px;
+      padding: 22px;
+      border: 1px solid #dcecf0;
+      border-radius: 18px;
+      background: #edf7f8;
+    }
+    .today-note .crown { font-size: 1.7rem; }
+    .today-note p { margin: 0; color: #526a75; font-size: .91rem; }
+    .today-note strong { color: var(--ink); }
+
+    footer {
+      padding: 30px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .82rem;
+    }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+
+    @media (max-width: 760px) {
+      .nav-links { gap: 14px; }
+      .nav-links a { font-size: .78rem; }
+      .hero { min-height: 610px; }
+      .places-grid { grid-template-columns: 1fr; }
+      .place-card { min-height: 290px; }
+      .transport-layout { grid-template-columns: 1fr; gap: 24px; }
+      .timeline { grid-template-columns: 1fr; gap: 10px; }
+      .timeline::before { top: 16px; bottom: 40px; left: 27px; width: 2px; height: auto; }
+      .time-card { padding: 0 0 0 56px; }
+      .time-dot { top: 21px; left: 17px; }
+      .time-button { min-height: unset; }
+      .section { padding-top: 65px; }
+      .transport-section { margin-top: 65px; padding: 56px 0; }
+    }
+    @media (max-width: 460px) {
+      .wrap { width: min(100% - 28px, 1120px); }
+      .nav { min-height: 68px; }
+      .brand { font-size: .78rem; }
+      .brand-mark { width: 32px; height: 32px; }
+      .nav-links { gap: 10px; }
+      .nav-links a { font-size: .7rem; }
+      .hero-content { padding-top: 85px; }
+      .hero-note { display: block; margin: 13px 0 0; }
+      .footer-inner { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero" id="top">
+    <div class="topbar">
+      <nav class="nav wrap" aria-label="Main navigation">
+        <a class="brand" href="#top"><span class="brand-mark">🧭</span> NORDIC FIELD NOTES</a>
+        <div class="nav-links">
+          <a href="#places">Places</a>
+          <a href="#transport">Get around</a>
+          <a href="#history">History</a>
+        </div>
+      </nav>
+    </div>
+    <div class="hero-content wrap">
+      <p class="eyebrow">A little north of ordinary</p>
+      <h1>Nordic Expedition:<br><span>The Ultimate Guide to Northern Europe!</span></h1>
+      <p class="hero-intro">Chase sky-wide auroras, wander storybook streets, and discover a world of fjords, folklore, and fresh air.</p>
+      <a class="button" href="#places">Start exploring <span aria-hidden="true">↓</span></a>
+      <span class="hero-note">Four countries. A thousand little wonders.</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="section wrap" id="places">
+      <div class="section-heading">
+        <p class="kicker">Your north-star shortlist</p>
+        <h2>Epic Places to Visit</h2>
+        <p>From glowing skies to geothermal waters, these are the kinds of places that make you stop, stare, and say “wow.”</p>
+      </div>
+      <div class="places-grid">
+        <article class="place-card norway">
+          <span class="place-emoji" aria-hidden="true">🌌</span>
+          <p class="place-country">Norway · Arctic skies</p>
+          <h3>Dance beneath the Northern Lights</h3>
+          <p>Look up around Tromsø or the Lofoten Islands on a dark, clear night. The aurora is nature’s most magical light show—and it never follows a schedule.</p>
+        </article>
+        <article class="place-card denmark">
+          <span class="place-emoji" aria-hidden="true">🏰</span>
+          <p class="place-country">Denmark · Storybook history</p>
+          <h3>Explore castles fit for a saga</h3>
+          <p>Visit Kronborg Castle in Helsingør, a Renaissance landmark linked to Shakespeare’s Hamlet, and imagine royal life by the sea.</p>
+        </article>
+        <article class="place-card iceland">
+          <span class="place-emoji" aria-hidden="true">♨️</span>
+          <p class="place-country">Iceland · Fire meets ice</p>
+          <h3>Soak in a blue geothermal lagoon</h3>
+          <p>Warm, mineral-rich waters meet dramatic lava fields. Iceland’s hot springs are a relaxing way to experience the island’s volcanic energy.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="transport-section" id="transport">
+      <div class="wrap">
+        <div class="section-heading">
+          <p class="kicker">Pick your adventure</p>
+          <h2>Choose Your Ride (Transportation)</h2>
+          <p>Tap a ride to discover what the journey is like. Your route can be just as memorable as the destination.</p>
+        </div>
+        <div class="transport-layout">
+          <div class="ride-options" role="group" aria-label="Choose a way to travel">
+            <button class="ride-option" type="button" data-ride="train" aria-pressed="true">
+              <span class="ride-icon" aria-hidden="true">🚄</span>
+              <span><strong>High-Speed Train</strong><small>Relax and watch the scenery roll by</small></span>
+            </button>
+            <button class="ride-option" type="button" data-ride="cruise" aria-pressed="false">
+              <span class="ride-icon" aria-hidden="true">🚢</span>
+              <span><strong>Scenic Fjord Cruise Ship</strong><small>Glide between mountains and sea</small></span>
+            </button>
+            <button class="ride-option" type="button" data-ride="car" aria-pressed="false">
+              <span class="ride-icon" aria-hidden="true">🚗</span>
+              <span><strong>Viking Road Trip Car</strong><small>Make your own path, one stop at a time</small></span>
+            </button>
+          </div>
+          <div class="ride-panel" aria-live="polite" aria-atomic="true">
+            <span class="panel-icon" id="ride-icon" aria-hidden="true">🚄</span>
+            <h3 id="ride-title">All aboard the Nordic railways</h3>
+            <p id="ride-copy">Trains connect lively cities and pass through forests, mountain valleys, and lakeside towns. Settle in, find a window seat, and let the landscape do the entertaining.</p>
+            <span class="ride-tip" id="ride-tip">Great for: easy city-to-city journeys</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="history">
+      <div class="section-heading">
+        <p class="kicker">Stories written over centuries</p>
+        <h2>Step Back in Time (History)</h2>
+        <p>Tap a chapter to open it. Northern Europe’s past is full of bold explorers, royal halls, and big changes.</p>
+      </div>
+
+      <div class="timeline" aria-label="A short history of Northern Europe">
+        <article class="time-card">
+          <span class="time-dot" aria-hidden="true"></span>
+          <button class="time-button" type="button" aria-expanded="false" aria-controls="history-vikings">
+            <span class="time-date">c. 800–1050 CE</span>
+            <strong>Viking voyages 🛶</strong>
+            <span class="teaser">Sailors, traders, and storytellers set out across the seas.</span>
+          </button>
+          <p class="time-detail" id="history-vikings">Viking-age communities in Scandinavia traded, farmed, crafted, and explored by ship. Their journeys reached across Europe and beyond; their legends still inspire books and adventures today.</p>
+        </article>
+        <article class="time-card">
+          <span class="time-dot" aria-hidden="true"></span>
+          <button class="time-button" type="button" aria-expanded="false" aria-controls="history-kingdoms">
+            <span class="time-date">Medieval centuries</span>
+            <strong>Kingdoms &amp; crowns 👑</strong>
+            <span class="teaser">Castles rise, kingdoms grow, and royal stories unfold.</span>
+          </button>
+          <p class="time-detail" id="history-kingdoms">Over many centuries, the region’s kingdoms and borders changed. Medieval churches, fortified towns, and later royal palaces tell stories of power, culture, and everyday life through the ages.</p>
+        </article>
+        <article class="time-card">
+          <span class="time-dot" aria-hidden="true"></span>
+          <button class="time-button" type="button" aria-expanded="false" aria-controls="history-today">
+            <span class="time-date">Today</span>
+            <strong>A greener, safer future 🌱</strong>
+            <span class="teaser">Tradition meets thoughtful design and modern life.</span>
+          </button>
+          <p class="time-detail" id="history-today">Today, Nordic countries are known for strong public services, high quality of life, and ambitious climate goals. Each country is different, but clean-energy investment and care for the outdoors are important parts of the modern story.</p>
+        </article>
+      </div>
+
+      <aside class="today-note">
+        <span class="crown" aria-hidden="true">🏔️</span>
+        <p><strong>A note for curious explorers:</strong> “Nordic” usually refers to Denmark, Finland, Iceland, Norway, and Sweden. This guide focuses on Iceland, Norway, Sweden, and Denmark—four neighbors with their own languages, traditions, and landscapes.</p>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>Made for curious minds &amp; big adventures 🧭</span>
+      <a href="#top">Back to the top ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    const rideInfo = {
+      train: {
+        icon: "🚄",
+        title: "All aboard the Nordic railways",
+        copy: "Trains connect lively cities and pass through forests, mountain valleys, and lakeside towns. Settle in, find a window seat, and let the landscape do the entertaining.",
+        tip: "Great for: easy city-to-city journeys"
+      },
+      cruise: {
+        icon: "🚢",
+        title: "Sail into the fjords",
+        copy: "A fjord cruise is a front-row seat to steep cliffs, waterfalls, and tiny villages tucked along the water. Keep your camera ready—and a warm layer nearby.",
+        tip: "Great for: dramatic views at a slower pace"
+      },
+      car: {
+        icon: "🚗",
+        title: "Take the scenic road",
+        copy: "A road trip gives you the freedom to pause at a lookout, visit a small town, or follow a winding coastal route. Plan ahead for weather, distances, and local road rules.",
+        tip: "Great for: flexible routes and spontaneous stops"
+      }
+    };
+
+    const rideButtons = document.querySelectorAll(".ride-option");
+    rideButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        rideButtons.forEach((item) => item.setAttribute("aria-pressed", "false"));
+        button.setAttribute("aria-pressed", "true");
+        const ride = rideInfo[button.dataset.ride];
+        document.querySelector("#ride-icon").textContent = ride.icon;
+        document.querySelector("#ride-title").textContent = ride.title;
+        document.querySelector("#ride-copy").textContent = ride.copy;
+        document.querySelector("#ride-tip").textContent = ride.tip;
+      });
+    });
+
+    document.querySelectorAll(".time-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const detail = document.getElementById(button.getAttribute("aria-controls"));
+        const isOpen = button.getAttribute("aria-expanded") === "true";
+        button.setAttribute("aria-expanded", String(!isOpen));
+        detail.classList.toggle("is-open", !isOpen);
+      });
+    });
+  </script>
+</body>
+</html>
